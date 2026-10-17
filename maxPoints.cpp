@@ -5,6 +5,17 @@ using namespace std;
 class Solution
 {
 public:
+    long long gcdCustom(long long a, long long b)
+    {
+        while (b != 0)
+        {
+            long long r = a % b;
+            a = b;
+            b = r;
+        }
+        return a;
+    }
+
     int maxPoints(vector<vector<int>> &points)
     {
         int n = points.size();
@@ -29,7 +40,7 @@ public:
                     continue;
                 }
 
-                long long g = gcd(abs(dx), abs(dy));
+                long long g = gcdCustom(llabs(dx), llabs(dy));
                 dx /= g;
                 dy /= g;
 
@@ -39,8 +50,7 @@ public:
                     dy = -dy;
                 }
 
-                string key = to_string(dx) + "," +
-                             to_string(dy);
+                string key = to_string(dx) + "," + to_string(dy);
 
                 best = max(best, ++slopes[key]);
             }
@@ -58,6 +68,7 @@ int main()
     cin >> n;
 
     vector<vector<int>> points(n, vector<int>(2));
+
     for (int i = 0; i < n; i++)
         cin >> points[i][0] >> points[i][1];
 
